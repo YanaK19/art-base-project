@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "ApolloServer",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -r esm src/index.js"
+  },
+  "author": "Yana Karcheuskaya",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.19.0",
+    "cors": "^2.8.5",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "graphql": "^15.4.0",
+    "mongoose": "^5.10.15",
+    "shortid": "^2.2.16"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

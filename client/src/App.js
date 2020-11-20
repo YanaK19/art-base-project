@@ -5,7 +5,7 @@ import UploadForm from './components/UploadForm';
 function App() {
   return (
       <div className="App">
-        <UploadForm/>
+       {/*  <UploadForm/> */}
         
         <FileUpload/>
       </div>
