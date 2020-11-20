@@ -1,0 +1,80 @@
+.App {
+  text-align: center;
+}
+
+.container {
+  max-width: 600px;
+  margin: 16px auto 10rem auto;
+}
+
+.dropzone {
+  height: 200px;
+  display: grid;
+  place-content: center;
+  margin: 20px auto;
+  border: dotted 2px gray;
+}
+
+.isActive {
+  background-color: #282c34;
+  color: white;
+}
+
+.thumb {
+  display: inline-flex;
+  border-radius: 2;
+  border: 1px solid #eaeaea;
+  margin-bottom: 8;
+  margin-right: 8;
+  max-width: 180px;
+  max-height: 250px;
+  padding: 4;
+  box-sizing: border-box;
+}
+
+.thumb-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 16 auto;
+}
+
+.thumb-inner {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.img {
+  display: block;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.button {
+  display: block;
+  padding: 5px 10px;
+  background-color: #282c34;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: 1.4rem;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+  border: none;
+}
+
+.button:hover {
+  opacity: 0.7;
+}
