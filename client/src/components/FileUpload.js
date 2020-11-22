@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 
-const UploadMutation = gql`
+export const UploadMutation = gql`
   mutation uploadFile($file: Upload!) {
     uploadFile(file: $file) {
       path
@@ -14,7 +14,7 @@ const UploadMutation = gql`
   }
 `;
 
-const FileUpload = () => {
+export const FileUpload = () => {
     const [uploadFile] = useMutation(UploadMutation);
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];

@@ -9,7 +9,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 const httpLink = createUploadLink({
-  uri: "http://localhost:4000"
+  uri: "http://localhost:4000/graphql"
 });
 
 const client = new ApolloClient({

@@ -1,13 +1,17 @@
 import './App.css';
-import FileUpload from './components/FileUpload';
-import UploadForm from './components/UploadForm';
+import WithPreviews from './components/uploadWithPreview';
+//import FileUpload from './components/FileUpload';
+//import UploadForm from './components/UploadForm';
+//import Uploads from './components/Uploads';
 
 function App() {
   return (
       <div className="App">
        {/*  <UploadForm/> */}
         
-        <FileUpload/>
+{/*         <FileUpload/> */}
+    {/*     <Uploads/> */}
+    <WithPreviews/>
       </div>
   );
 }
