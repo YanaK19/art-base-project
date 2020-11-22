@@ -22,6 +22,21 @@ const validateRegisterInput = (email, password, username) => {
     }
 }
 
+const validateLoginInput = (email, password) => {
+    if (email.trim() === '') {
+        throw new Error('Email must not be empty');
+    } else {
+        const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+        if (!email.match(regEx)) {
+            throw new Error('Email must be a valid email address');
+        }
+    }
+
+    if (password === '') {
+        throw new Error('Password must not empty');
+    }
+}
+
 export default {
     Mutation: {
         register: async (_, { registerInput: {
@@ -61,6 +76,34 @@ export default {
                     createdAt: res.createdAt,
                     token
                 };
+            } catch (error) {
+                return error;
+            }
+        },
+        login: async (_, { email, password }) => {
+            try {
+                validateLoginInput(email, password);
+                const user = await User.findOne({ email });
+                if (!user) {
+                    throw new Error('User not found');
+                }
+
+                const match = await bcrypt.compare(password, user.password);
+                if (!match) {
+                    throw new Error('Wrong crendetials');
+                }
+
+                const token = generateToken(user);
+                return { 
+                    id: user._id,
+                    email: user.email,
+                    username: user.username,
+                    about: user.about,
+                    img: user.img,
+                    albums: user.albums,
+                    createdAt: user.createdAt,
+                    token
+                }
             } catch (error) {
                 return error;
             }

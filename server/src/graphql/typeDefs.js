@@ -36,5 +36,6 @@ export default gql`
   type Mutation {
     uploadFile(file: Upload!): File
     register(registerInput: RegisterInput): User!
+    login(email: String!, password: String!): User!
   }
 `;

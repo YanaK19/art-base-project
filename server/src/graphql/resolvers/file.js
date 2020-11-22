@@ -2,8 +2,6 @@ import { mkdir } from "fs";
 import File from "../../models/File";
 import { processUpload } from "../../utils/uploadUtil";
 
-
-
 export default {
     Query: {
         files: async () => {

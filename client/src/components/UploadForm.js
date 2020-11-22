@@ -38,7 +38,7 @@ const UploadForm = () => {
 
     const handleFileChange = ({ target: { validity, files: [file] } }) => {
         if (validity.valid) register({ variables: { 
-            registerInput: {email: 'cute@mail.ru', password: 'cute', username: 'Cute', about: 'Yeees!!!', file}
+            registerInput: {email: 'withoutimg@mail.ru', password: 'cute', username: 'Cute', about: 'Yeees!!!'}
         } })
     }
 

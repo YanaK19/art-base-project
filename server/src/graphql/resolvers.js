@@ -13,6 +13,7 @@ export default {
 };
 
 /* 
+***********************************
 mutation uploadFile($file: Upload!) {
   uploadFile(file: $file) {
     path
@@ -21,4 +22,26 @@ mutation uploadFile($file: Upload!) {
     mimetype
   }
 }
+***********************************
+mutation register($file: Upload!) {
+  register(
+    registerInput: {
+      email: "em@mail.ru"
+      password: "dfsf"
+      username: "dfsd"
+      about: "fdsfs"
+      file: $file
+    }
+  ) {
+    email
+    username
+    about
+    token
+    img {
+      filename
+      mimetype
+    }
+  }
+}
+***********************************
 */
