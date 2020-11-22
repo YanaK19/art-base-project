@@ -50,8 +50,8 @@ export default gql`
   }
   type Like {
       id: ID!
-      createdAt: String
       userId: ID!
+      createdAt: String   
   }
   input CreateArtInput {
     title: String!,
@@ -79,5 +79,8 @@ export default gql`
     unpublishArt(artId: ID!): Art
     addArtToAlbum(artId: ID!, albumId: ID!): Album
     deleteArtFromAlbum(artId: ID!, albumId: ID!): Album
+    likeArt(artId: ID!): Art!
+    createArtComment(artId: ID!, text: String!): Art!
+    deleteArtComment(artId: ID!, commentId: ID!): Art!
   }
 `;

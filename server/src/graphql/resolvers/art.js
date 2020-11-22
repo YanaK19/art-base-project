@@ -93,9 +93,80 @@ export default {
                 const albumIndex = user.albums.findIndex(album => album._id == albumId);
                 const artIdIndex = user.albums[albumIndex].arts.findIndex(id => id == artId);
                 user.albums[albumIndex].arts.splice(artIdIndex, 1);
-                
+
                 await user.save();
                 return user.albums[albumIndex];
+            } catch (error) {
+                return error;
+            }
+        },
+        likeArt: async (_, { artId }, context) => {
+            try {
+                const userContext = checkToken(context);
+                const art = await Art.findById(artId);
+            
+                if(!art) {
+                    return new Error('Art not found');
+                }
+            
+                if (art.likes.find(like => like.userId == userContext.id)) {
+                    // Post already likes, unlike it
+                    art.likes = art.likes.filter(like => like.userId != userContext.id);
+                } else {
+                    // Not liked, like post
+                    art.likes.push({
+                        userId: userContext.id,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+ 
+                return art.save();
+            } catch (err) {
+                throw err;
+            }
+        },
+        createArtComment: async (_, { artId, text }, context) => {      
+            try {
+                const userContext = checkToken(context);
+
+                if (text.trim() === '') {
+                    throw new Error('Comment text must not be empty');
+                }
+
+                const art = await Art.findById(artId);
+                if (!art) {
+                    throw new Error('Art not found');
+                }
+
+                art.comments.unshift({
+                    text,
+                    userId: userContext.id,
+                    createdAt: new Date().toISOString()
+                });
+
+                return await art.save(); 
+            } catch(error) {
+                return error;
+            }
+        },
+        deleteArtComment: async (_, { artId, commentId }, context) => {
+            try {
+                const userContext = checkToken(context);
+
+                const art = await Art.findById(artId);
+                if (!art) {
+                    throw new Error('Art not found');
+                }
+
+                const commentIndex = art.comments.findIndex(comment => comment._id == commentId);
+    
+                if (art.comments[commentIndex].userId == userContext.id) {
+                    art.comments.splice(commentIndex, 1);
+                    return await art.save();
+                } else {
+                    return new Error('Wrong user credentials');
+                }
+                
             } catch (error) {
                 return error;
             }
