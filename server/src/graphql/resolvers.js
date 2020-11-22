@@ -1,14 +1,17 @@
 import fileResolvers from './resolvers/file';
 import userResolvers from './resolvers/user';
+import artResolvers from './resolvers/art';
 
 export default {
   Query: {
     hello: () => "Hello world",
-    ...fileResolvers.Query
+    ...fileResolvers.Query,
+    ...artResolvers.Query
   },
   Mutation: {
     ...fileResolvers.Mutation,
-    ...userResolvers.Mutation
+    ...userResolvers.Mutation,
+    ...artResolvers.Mutation
   }
 };
 
@@ -56,6 +59,24 @@ mutation {
       name
     }
     token
+  }
+}
+***********************************
+mutation {
+  deleteAlbum(albumId: "5fba7df450dfe217643a3d14") 
+}
+***********************************
+mutation createArt($file: Upload!) {
+		createArt(createArtInput: {
+      title: "School"
+      category: "comics"
+      albumName: "Meow"
+      file: $file
+    }) {
+    title
+    img {
+      filename
+    }
   }
 }
 ***********************************
