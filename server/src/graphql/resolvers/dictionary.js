@@ -2,7 +2,11 @@ import Dictionary from "../../models/Dictionary";
 import { processUpload } from "../../utils/uploadUtil";
 
 export default {
-    Query: {},
+    Query: {
+        getDictionary: async (_, { dictionaryId }) => {
+            return await Dictionary.findById(dictionaryId);
+        }
+    },
     Mutation: {
         createDictionary: async (_, { tags }) => {
             const newDictionary = new Dictionary({

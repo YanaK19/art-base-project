@@ -7,7 +7,8 @@ export default {
   Query: {
     hello: () => "Hello world",
     ...fileResolvers.Query,
-    ...artResolvers.Query
+    ...artResolvers.Query,
+    ...dictionaryResolvers.Query
   },
   Mutation: {
     ...fileResolvers.Mutation,
@@ -145,6 +146,22 @@ mutation createCategory($files: [Upload]) {
         filename
       }
     }
+  }
+}
+***********************************
+{
+  getDictionary(dictionaryId: "5fbaba339e38ef2a144ec4eb") {
+    id
+    categories {
+      id
+      name
+      details
+      imgs {
+        mimetype
+        filename
+      }
+    }
+    tags
   }
 }
 ***********************************

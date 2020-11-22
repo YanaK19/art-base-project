@@ -78,6 +78,7 @@ export default gql`
     files: [File!]
     getArts: [Art]
     getPublishedArtsByCategory(category: String!): [Art]
+    getDictionary(dictionaryId: ID!): Dictionary
   }
   type Mutation {
     uploadFile(file: Upload!): File
