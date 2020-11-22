@@ -37,5 +37,7 @@ export default gql`
     uploadFile(file: Upload!): File
     register(registerInput: RegisterInput): User!
     login(email: String!, password: String!): User!
+    createAlbum(name: String!): Album
+    deleteAlbum(albumId: ID!): String
   }
 `;

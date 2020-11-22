@@ -20,7 +20,8 @@ export default (async function () {
     // apollo-server
     const server = new ApolloServer({
       typeDefs,
-      resolvers
+      resolvers,
+      context: ({ req }) => ({ req })
     });
 
     const dir = path.join(process.cwd(), "images");

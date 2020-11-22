@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
+import Album from '../../models/Album';
 import User from '../../models/User';
-import { generateToken } from '../../utils/jwtUtil';
+import { checkToken, generateToken } from '../../utils/jwtUtil';
 import { processUpload } from '../../utils/uploadUtil';
 
 const validateRegisterInput = (email, password, username) => {
@@ -57,6 +58,7 @@ export default {
                     username,
                     about,
                     password: passwordHashed,
+                    albums: [{ name: 'All', arts: [] }],
                     createdAt: new Date().toISOString()
                 });
 
@@ -104,6 +106,37 @@ export default {
                     createdAt: user.createdAt,
                     token
                 }
+            } catch (error) {
+                return error;
+            }
+        },
+        createAlbum: async (_, { name }, context) => {
+            try {
+                const userContext = checkToken(context);
+
+                if (!name) {
+                    throw new Error('Album name must not empty');
+                }
+
+                const user = await User.findById(userContext.id);
+                const newAlbum = new Album({ name })
+                user.albums.push(newAlbum);
+                await user.save();
+
+                return newAlbum;
+            } catch (error) {
+                return error;
+            }
+        },
+        deleteAlbum: async (_, { albumId }, context) => {
+            try {
+                const userContext = checkToken(context);
+                const user = await User.findById(userContext.id);
+
+                user.albums = user.albums.filter(album => album._id != albumId);
+                
+                await user.save();
+                return 'Album successfully deleted'
             } catch (error) {
                 return error;
             }

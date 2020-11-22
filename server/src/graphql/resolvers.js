@@ -44,4 +44,19 @@ mutation register($file: Upload!) {
   }
 }
 ***********************************
+mutation {
+  login(email: "cute@mail.ru", password: "cute") {
+    username
+    about
+    img {
+      id
+      filename
+    }
+    albums {
+      name
+    }
+    token
+  }
+}
+***********************************
 */
