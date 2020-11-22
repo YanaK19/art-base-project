@@ -1,4 +1,5 @@
-const fileResolvers = require('./resolvers/file');
+import fileResolvers from './resolvers/file';
+import userResolvers from './resolvers/user';
 
 export default {
   Query: {
@@ -6,7 +7,8 @@ export default {
     ...fileResolvers.Query
   },
   Mutation: {
-    ...fileResolvers.Mutation
+    ...fileResolvers.Mutation,
+    ...userResolvers.Mutation
   }
 };
 

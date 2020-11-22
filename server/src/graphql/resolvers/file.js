@@ -21,7 +21,7 @@ const storeUpload = async ({ stream, filename, mimetype }) => {
     return file;
 };
 
-module.exports = {
+export default {
     Query: {
         files: async () => {
           return await File.find();

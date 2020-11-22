@@ -18,14 +18,23 @@ export default gql`
     createdAt: String!
   }
   type Album {
+    id: ID!
     name: String!
-    arts: ID!
+    arts: [String]
   }
+  input RegisterInput {
+    email: String!
+    password: String!
+    username: String!
+    about: String
+    img: Upload
+}
   type Query {
     hello: String
     files: [File!]
   }
   type Mutation {
     uploadFile(file: Upload!): File
+    register(registerInput: RegisterInput): User!
   }
 `;

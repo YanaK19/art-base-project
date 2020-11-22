@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const fileSchema = new Schema({
+export const fileSchema = new Schema({
   filename: String,
   mimetype: String,
   path: String
