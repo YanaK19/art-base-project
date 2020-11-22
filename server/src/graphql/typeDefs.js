@@ -62,6 +62,17 @@ export default gql`
     albumName: String
     toPublish: Boolean
   }
+  type Dictionary {
+    id: ID!
+    categories: [Category],
+    tags: [String]
+  }
+  type Category {
+    id: ID!
+    name: String!
+    details: String
+    imgs: [File]  
+}
   type Query {
     hello: String
     files: [File!]
@@ -82,5 +93,8 @@ export default gql`
     likeArt(artId: ID!): Art!
     createArtComment(artId: ID!, text: String!): Art!
     deleteArtComment(artId: ID!, commentId: ID!): Art!
+
+    createDictionary(tags: [String]): Dictionary
+    createCategory(dictionaryId: ID!, name: String!, details: String, files: [Upload]): Dictionary
   }
 `;

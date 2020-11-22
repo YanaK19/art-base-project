@@ -1,6 +1,7 @@
 import fileResolvers from './resolvers/file';
 import userResolvers from './resolvers/user';
 import artResolvers from './resolvers/art';
+import dictionaryResolvers from './resolvers/dictionary';
 
 export default {
   Query: {
@@ -11,7 +12,8 @@ export default {
   Mutation: {
     ...fileResolvers.Mutation,
     ...userResolvers.Mutation,
-    ...artResolvers.Mutation
+    ...artResolvers.Mutation,
+    ...dictionaryResolvers.Mutation
   }
 };
 
@@ -117,6 +119,32 @@ mutation {
   deleteArtFromAlbum(albumId: "5fba7ca2e0491a1d8cce373b", artId: "5fba8e0ac11b470ff89364ca") {
     name
     arts
+  }
+}
+***********************************
+mutation {
+  createDictionary(tags: []) {
+    id
+    categories {
+      id
+      name
+    }
+    tags
+  }
+}
+***********************************
+dictionaryId = 5fbaba339e38ef2a144ec4eb
+***********************************
+mutation createCategory($files: [Upload]) {
+  createCategory(dictionaryId: "5fbaba339e38ef2a144ec4eb", name: "comics", details: "details comics", files: $files) {
+    id
+    categories {
+      id
+      name
+      imgs {
+        filename
+      }
+    }
   }
 }
 ***********************************
