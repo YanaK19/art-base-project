@@ -80,4 +80,26 @@ mutation createArt($file: Upload!) {
   }
 }
 ***********************************
+mutation createArt($file: Upload!) {
+		createArt(createArtInput: {
+      title: "School"
+      category: "comics"
+      albumName: "Meow"
+      toPublish: true
+      file: $file
+    }) {
+    title
+    img {
+      filename
+    }
+  }
+}
+***********************************
+mutation {
+  unpublishArt(artId: "5fba92f459f34024f042984e") {
+    title
+    publishedAt
+  }
+}
+***********************************
 */

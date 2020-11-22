@@ -60,6 +60,7 @@ export default gql`
     tags: [String]
     file: Upload!
     albumName: String
+    toPublish: Boolean
   }
   type Query {
     hello: String
@@ -73,5 +74,7 @@ export default gql`
     createAlbum(name: String!): Album
     deleteAlbum(albumId: ID!): String
     createArt(createArtInput: CreateArtInput): Art
+    publishArt(artId: ID!): Art
+    unpublishArt(artId: ID!): Art
   }
 `;
