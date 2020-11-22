@@ -27,7 +27,7 @@ export default gql`
     password: String!
     username: String!
     about: String
-    img: Upload
+    file: Upload
 }
   type Query {
     hello: String

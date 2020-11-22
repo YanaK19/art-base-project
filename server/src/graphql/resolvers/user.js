@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import User from '../../models/User';
 import { generateToken } from '../../utils/jwtUtil';
+import { processUpload } from '../../utils/uploadUtil';
 
 const validateRegisterInput = (email, password, username) => {
     if (email.trim() === '') {
@@ -24,14 +25,15 @@ const validateRegisterInput = (email, password, username) => {
 export default {
     Mutation: {
         register: async (_, { registerInput: {
-            email, password, username, about
+            email, password, username, about, file
         } }) => {
+            console.log(file);
             try {
                 validateRegisterInput(email, password, username);
                 // make sure user doesnt already exist
                 const user = await User.findOne({ email });
                 if (user) {
-                    throw new Error('User is already exists.');
+                    //throw new Error('User is already exists.');
                 }
 
                 const passwordHashed = await bcrypt.hash(password, 12);
@@ -43,6 +45,10 @@ export default {
                     createdAt: new Date().toISOString()
                 });
 
+                if (file) {
+                    newUser.img = await processUpload(file);
+                }
+
                 const res = await newUser.save();
                 const token = generateToken(res);
 
@@ -51,6 +57,7 @@ export default {
                     email: res.email,
                     username: res.username,
                     about: res.about,
+                    img: res.img,
                     createdAt: res.createdAt,
                     token
                 };
