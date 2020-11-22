@@ -102,4 +102,22 @@ mutation {
   }
 }
 ***********************************
+{
+  getPublishedArtsByCategory(category: "comics") {
+    id
+    title
+    category
+    img {
+      id
+    }
+  }
+}
+***********************************
+mutation {
+  deleteArtFromAlbum(albumId: "5fba7ca2e0491a1d8cce373b", artId: "5fba8e0ac11b470ff89364ca") {
+    name
+    arts
+  }
+}
+***********************************
 */

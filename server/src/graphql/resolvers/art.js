@@ -8,6 +8,9 @@ export default {
         getArts: async () => {
           return await Art.find({ publishedAt: { $ne: null } });
         },
+        getPublishedArtsByCategory: async (_, { category }) => {
+            return await Art.find({ publishedAt: { $ne: null }, category });
+        },
     },
     Mutation: {
         createArt: async(_, { createArtInput: {
@@ -61,6 +64,38 @@ export default {
                 const art = await Art.findById(artId);
                 art.publishedAt = null;
                 return await art.save();
+            } catch (error) {
+                return error;
+            }
+        },
+        addArtToAlbum: async (_, { artId, albumId }, context) => {
+            try {
+                const userContext = checkToken(context);
+                const user = await User.findById(userContext.id);
+
+                const albumAllIndex = user.albums.findIndex(album => album.name === 'All');
+                user.albums[albumAllIndex].arts.push(artId);
+
+                const albumIndex = user.albums.findIndex(album => album._id == albumId);
+                user.albums[albumIndex].arts.push(artId);
+                
+                await user.save();
+                return user.albums[albumIndex];
+            } catch (error) {
+                return error;
+            }
+        },
+        deleteArtFromAlbum: async (_, { artId, albumId }, context) => {
+            try {
+                const userContext = checkToken(context);
+                const user = await User.findById(userContext.id);
+
+                const albumIndex = user.albums.findIndex(album => album._id == albumId);
+                const artIdIndex = user.albums[albumIndex].arts.findIndex(id => id == artId);
+                user.albums[albumIndex].arts.splice(artIdIndex, 1);
+                
+                await user.save();
+                return user.albums[albumIndex];
             } catch (error) {
                 return error;
             }

@@ -66,6 +66,7 @@ export default gql`
     hello: String
     files: [File!]
     getArts: [Art]
+    getPublishedArtsByCategory(category: String!): [Art]
   }
   type Mutation {
     uploadFile(file: Upload!): File
@@ -76,5 +77,7 @@ export default gql`
     createArt(createArtInput: CreateArtInput): Art
     publishArt(artId: ID!): Art
     unpublishArt(artId: ID!): Art
+    addArtToAlbum(artId: ID!, albumId: ID!): Album
+    deleteArtFromAlbum(artId: ID!, albumId: ID!): Album
   }
 `;
