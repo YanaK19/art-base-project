@@ -11,6 +11,30 @@ export default {
         getPublishedArtsByCategory: async (_, { category }) => {
             return await Art.find({ publishedAt: { $ne: null }, category });
         },
+        getPublishedArt: async (_, { artId }) => {
+            const art = await Art.findById(artId);
+            const user = await User.findById(art.user.id);
+            const userArts = user.albums.find(album => album.name === 'All').arts;
+
+            return {
+                id: art.id,
+                title: art.title,
+                details: art.details,
+                category: art.category,
+                tags: art.tags,
+                img: art.img,
+                publishedAt: art.publishedAt,
+                comments: art.comments,
+                likes: art.likes,
+                user: {
+                    id: user._id,
+                    username: user.username,
+                    img: user.img,
+                    about: user.about,
+                    arts: userArts
+                }
+            };
+        }
     },
     Mutation: {
         createArt: async(_, { createArtInput: {
@@ -137,6 +161,7 @@ export default {
                     throw new Error('Comment text must not be empty');
                 }
 
+                const user = await User.findById(userContext.id);
                 const art = await Art.findById(artId);
                 if (!art) {
                     throw new Error('Art not found');
@@ -144,8 +169,12 @@ export default {
 
                 art.comments.unshift({
                     text,
-                    userId: userContext.id,
-                    createdAt: new Date().toISOString()
+                    createdAt: new Date().toISOString(),
+                    user: {
+                        id: user._id,
+                        username: user.username,
+                        img: user.img
+                    }
                 });
 
                 return await art.save(); 

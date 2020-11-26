@@ -20,7 +20,7 @@ export default gql`
   type Album {
     id: ID!
     name: String!
-    arts: [String]
+    arts: [ID]
   }
   input RegisterInput {
     email: String!
@@ -42,16 +42,36 @@ export default gql`
     comments: [Comment]
     likes: [Like]
   }
+  type ArtExt {
+    id: ID!
+    title: String!
+    details: String
+    category: String
+    tags: [String]
+    createdAt: String
+    publishedAt: String
+    img: File
+    user: UserExt
+    comments: [Comment]
+    likes: [Like]
+  }
   type UserLight {
     id: ID!
     username: String!
     img: File
   }
+  type UserExt {
+    id: ID!
+    username: String!
+    img: File
+    about: String!
+    arts: [File]
+  }
   type Comment {
     id: ID!
     text: String!
     createdAt: String
-    userId: ID!
+    user: UserLight
   }
   type Like {
       id: ID!
@@ -83,6 +103,7 @@ export default gql`
     files: [File!]
     getArts: [Art]
     getPublishedArtsByCategory(category: String!): [Art]
+    getPublishedArt(artId: ID!): ArtExt
     getDictionary(dictionaryId: ID!): Dictionary
   }
   type Mutation {

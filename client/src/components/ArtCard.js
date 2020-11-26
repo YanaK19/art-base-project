@@ -11,6 +11,13 @@ const ArtCard = ({ art }) => {
         <div>
             Published (ago): { moment(art.publishedAt).fromNow(true) }
         </div>
+
+        <div>
+            Published by: {art.user.username}
+            <img src={"/" + art.user.img.path} 
+            alt={art.user.img.filename}
+            style={{width: '10%'}} />
+        </div>
     </div>
     )
 }
