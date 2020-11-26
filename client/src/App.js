@@ -9,8 +9,6 @@ import Routes from './Routes'
 import MenuBar from './components/MenuBar';
 
 function App() {
-  console.log(window.location.pathname);
-
   return (
     <BrowserRouter>
       <MenuBar/>

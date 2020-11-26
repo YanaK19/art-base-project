@@ -27,7 +27,11 @@ export default {
                     details,
                     category,
                     tags,
-                    userId: userContext.id,
+                    user: {
+                        id: user._id,
+                        username: user.username,
+                        img: user.img
+                    },
                     createdAt: new Date().toISOString(),
                 });
                 newArt.img = await processUpload(file);

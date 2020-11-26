@@ -34,13 +34,18 @@ export default gql`
     title: String!
     details: String
     category: String
-    tags: [String],
+    tags: [String]
     createdAt: String
     publishedAt: String
-    img: File,
-    userId: ID!
+    img: File
+    user: UserLight
     comments: [Comment]
     likes: [Like]
+  }
+  type UserLight {
+    id: ID!
+    username: String!
+    img: File
   }
   type Comment {
     id: ID!

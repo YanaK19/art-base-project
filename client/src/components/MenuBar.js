@@ -9,6 +9,9 @@ const MenuBar = () => {
                     <NavLink to="/" exact className="nav-link" activeStyle={{color: 'red'}}>Home</NavLink>
                 </li>
                 <li>
+                    <NavLink to="/art" className="nav-link" activeStyle={{color: 'red'}}>Login</NavLink>
+                </li>
+                <li>
                     <NavLink to="/register" className="nav-link" activeStyle={{color: 'red'}}>Register</NavLink>
                 </li>
                 <li>

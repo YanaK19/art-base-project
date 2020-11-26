@@ -9,7 +9,11 @@ const artSchema = new Schema({
   createdAt: String,
   publishedAt: String,
   img: fileSchema,
-  userId: { type: Schema.Types.ObjectId, ref: 'users' },
+  user: {
+    id: { type: Schema.Types.ObjectId, ref: 'users' },
+    username: String,
+    img: fileSchema
+  },
   comments: [
     {
         text: String,

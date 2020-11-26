@@ -20,6 +20,8 @@ export default {
 
 /* 
 ***********************************
+token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYmZhNGM4OWY1ZDVhMjhkNDliZWU4OSIsImVtYWlsIjoibGlzYUBtYWlsLnJ1IiwidXNlcm5hbWUiOiJMaXNhIiwiaWF0IjoxNjA2Mzk1MDgwfQ.LEkY_ap5WOO8at8gOvu9p15Lvyz5446Z_sQcch4mNGs
+***********************************
 mutation uploadFile($file: Upload!) {
   uploadFile(file: $file) {
     path
@@ -71,14 +73,26 @@ mutation {
 ***********************************
 mutation createArt($file: Upload!) {
 		createArt(createArtInput: {
-      title: "School"
+      title: "School space"
+      details: "Hi! See my cute artwork"
       category: "comics"
-      albumName: "Meow"
+      toPublish: true
       file: $file
     }) {
+    id
     title
+    details
+    category
+    publishedAt
     img {
       filename
+    }
+    user {
+      id
+      username
+      img {
+        filename
+      }
     }
   }
 }
