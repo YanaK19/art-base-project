@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
+import FileUploadWithPreview from '../../components/FileUploadWithPreview';
 
 const REGISTER = gql`
     mutation Register(
@@ -25,17 +26,25 @@ const REGISTER = gql`
     }
 `
 
-const Register = () => {
+// @todo: loading while registering
+
+const Register = props => {
     const [values, setValues] = useState({
         username: '',
         about: '',
         email: '',
-        password: ''
+        password: '',
+        file: null
     });
+    const [error, setError] = useState();
 
     const [register, { loading }] = useMutation(REGISTER, {
-        update(proxy, result) {
+        update(_, result) {
             console.log(result);
+            props.history.push('/');
+        },
+        onError(err) {
+            setError(err.graphQLErrors[0].message);
         },
         variables : values
     });
@@ -49,6 +58,8 @@ const Register = () => {
     return (
         <div>
             <form onSubmit={onSubmit}>
+                <FileUploadWithPreview setFile={file => setValues({...values, file})}/>
+
                 <div>username</div>
                 <input type="text" name="username"
                     value={values.username}
@@ -70,6 +81,10 @@ const Register = () => {
                     value={values.password}
                     onChange={e => setValues({...values, password: e.target.value})}
                 />
+                {error && (<div style={{color: 'red'}}>
+                    {error}
+                </div>)}
+
                 <button type="submit" disabled={loading}>register</button>
             </form>
         </div>
