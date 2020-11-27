@@ -1,9 +1,15 @@
 import React from 'react'
 import moment from 'moment'
+import { useHistory } from 'react-router-dom';
 
 const ArtCard = ({ art }) => {
+    const history = useHistory();
+
     return (
-    <div key={art.id}>
+    <div key={art.id}
+        style={{background: '#ccc', margin: 20}}
+        onClick={() => history.push(`art/${art.id}`)}
+    >
         <div>{art.title}</div>
         <img src={"/" + art.img.path} 
             alt={art.img.filename}

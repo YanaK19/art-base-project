@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams, useHistory } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import moment from 'moment'
@@ -35,11 +36,23 @@ const FETCH_ART = gql`
 `;
 
 const Art = () => {
+    const { id } = useParams();
+    const history = useHistory();
+    
+
     const { loading, data } = useQuery(FETCH_ART,
-        { variables: { artId : '5fbfa5ea243f682b9c1b44a8' } });
+        { variables: { artId : id } });
 
     if (!loading) {
-        console.log(data);
+        console.log(data, id);
+    }
+
+    const likeArt = () => {
+        console.log('like');
+    }
+
+    const commentArt = () => {
+        console.log('comment');
     }
 
     return (
@@ -47,6 +60,14 @@ const Art = () => {
             <h2>Art Details</h2>
             { !loading && (
                 <div>
+                    <button type="button" onClick={() => history.goBack()}>
+                        Go back
+                    </button>
+                    
+                    <button onClick={likeArt}>Like <span>{data.getPublishedArt.likes.length}</span></button>
+                    
+                    <button onClick={commentArt}>Comment</button>
+                    
                     <p>{data.getPublishedArt.title}</p>
                     <p>{data.getPublishedArt.details}</p>
                     <p>{data.getPublishedArt.category}</p>
@@ -67,7 +88,6 @@ const Art = () => {
                                 style={{width: '10%'}} />
                         </div>
                     ))}</div>
-                    <button>Like <span>{data.getPublishedArt.likes.length}</span></button>
                 </div>
             ) }
         </div>
