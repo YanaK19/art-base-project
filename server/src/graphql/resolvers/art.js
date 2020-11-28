@@ -44,7 +44,7 @@ export default {
                 const userContext = checkToken(context);
                 const user = await User.findById(userContext.id);
                 
-                //todo: validateCreateArtInput
+                // @todo: validateCreateArtInput
                 
                 const newArt = new Art({
                     title,

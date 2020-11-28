@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import FileUploadWithPreview from '../../components/FileUploadWithPreview';
+import { AuthContext } from '../../context/auth';
 
 const REGISTER = gql`
     mutation Register(
@@ -29,6 +30,7 @@ const REGISTER = gql`
 // @todo: loading while registering
 
 const Register = props => {
+    const context = useContext(AuthContext);
     const [values, setValues] = useState({
         username: '',
         about: '',
@@ -41,6 +43,7 @@ const Register = props => {
     const [register, { loading }] = useMutation(REGISTER, {
         update(_, result) {
             console.log(result);
+            context.login(result.data.register);
             props.history.push('/');
         },
         onError(err) {

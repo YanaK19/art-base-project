@@ -1,19 +1,17 @@
 import './App.css';
-//import UploadForm from './components/UploadForm';
-//import WithPreviews from './components/uploadWithPreview';
-//import FileUpload from './components/FileUpload';
-//import UploadForm from './components/UploadForm';
-//import Uploads from './components/Uploads';
 import { BrowserRouter } from 'react-router-dom'
 import Routes from './Routes'
 import MenuBar from './components/MenuBar';
+import { AuthProvider } from './context/auth';
 
 function App() {
   return (
-    <BrowserRouter>
-      <MenuBar/>
-      <Routes/>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <MenuBar/>
+        <Routes/>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

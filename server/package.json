@@ -10,10 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.19.0",
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.15",
     "shortid": "^2.2.16"
   },
