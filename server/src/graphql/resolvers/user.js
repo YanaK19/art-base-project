@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import Album from '../../models/Album';
+import Art from '../../models/Art';
 import User from '../../models/User';
 import { checkToken, generateToken } from '../../utils/jwtUtil';
 import { processUpload } from '../../utils/uploadUtil';
@@ -39,6 +40,28 @@ const validateLoginInput = (email, password) => {
 }
 
 export default {
+    Query: {
+        getAlbums: async (parent, _, context) => {
+            const userContext = checkToken(context);
+            const user = await User.findById(userContext.id);
+            return user.albums;
+        },
+        getAlbumsWithArts: async (parent, _, context) => {
+            const userContext = checkToken(context);
+            const user = await User.findById(userContext.id);
+
+            const albumsWithArtsPromises = user.albums.map(async (album) => {
+                const artsPromises = Promise.all(album.arts.map(artId => Art.findById(artId)));
+                return {
+                    id: album._id,
+                    name: album.name,
+                    arts: await artsPromises
+                }
+            });
+
+           return await Promise.all(albumsWithArtsPromises);
+        }
+    },
     Mutation: {
         register: async (_, { registerInput: {
             email, password, username, about, file

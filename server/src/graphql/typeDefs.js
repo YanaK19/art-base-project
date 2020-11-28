@@ -22,6 +22,11 @@ export default gql`
     name: String!
     arts: [ID]
   }
+  type AlbumExt {
+    id: ID!
+    name: String!
+    arts: [Art]
+  }
   input RegisterInput {
     email: String!
     password: String!
@@ -104,6 +109,8 @@ export default gql`
     getArts: [Art]
     getPublishedArtsByCategory(category: String!): [Art]
     getPublishedArt(artId: ID!): ArtExt
+    getAlbums: [Album]
+    getAlbumsWithArts: [AlbumExt]
     getDictionary(dictionaryId: ID!): Dictionary
   }
   type Mutation {

@@ -7,6 +7,7 @@ export default {
   Query: {
     hello: () => "Hello world",
     ...fileResolvers.Query,
+    ...userResolvers.Query,
     ...artResolvers.Query,
     ...dictionaryResolvers.Query
   },

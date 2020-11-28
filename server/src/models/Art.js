@@ -33,4 +33,4 @@ const artSchema = new Schema({
   ]
 });
 
-module.exports = model('Art', artSchema);
+export default model('Art', artSchema);
