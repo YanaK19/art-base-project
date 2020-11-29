@@ -22,7 +22,6 @@ const Login = props => {
         update(_, result) {
             console.log(result);
             context.login(result.data.login);
-            window.location.reload();
             props.history.push('/');
         },
         onError(err) {
