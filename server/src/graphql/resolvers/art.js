@@ -2,6 +2,7 @@ import Art from "../../models/Art";
 import User from "../../models/User";
 import { checkToken } from "../../utils/jwtUtil";
 import { processUpload } from "../../utils/uploadUtil";
+import { ObjectId } from 'mongodb'
 
 export default {
     Query: {
@@ -126,6 +127,23 @@ export default {
                 const artIdIndex = user.albums[albumIndex].arts.findIndex(id => id == artId);
                 user.albums[albumIndex].arts.splice(artIdIndex, 1);
 
+                if (user.albums[albumIndex].name === 'All') {
+                    await Art.deleteOne({ _id: ObjectId(artId) });
+
+                    let customAlbumIndex;
+
+                    user.albums.forEach((album, i) => {
+                        if (album.arts.findIndex(id => id == artId) !== -1) {
+                            customAlbumIndex = i;
+                        }
+                    });
+
+                    if (customAlbumIndex) {
+                        const customArtIdIndex = user.albums[customAlbumIndex].arts.findIndex(id => id == artId);
+                        user.albums[customAlbumIndex].arts.splice(customArtIdIndex, 1);
+                    }
+                }
+                
                 await user.save();
                 return user.albums[albumIndex];
             } catch (error) {

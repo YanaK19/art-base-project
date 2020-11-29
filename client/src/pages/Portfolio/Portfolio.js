@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import React from 'react'
+import DeleteArtButton from '../../components/DeleteArtButton';
 
 const FETCH_FOLDERS_WITH_ARTS = gql`
     {
@@ -35,9 +36,10 @@ const Portfolio = () => {
                                             <img src={"/" + art.img.path} 
                                         alt={art.img.filename}
                                         style={{width: '40%'}} />
-                                            <button
-                                            onClick={() => console.log('delete ' + art.title)}
-                                            style={{position: 'absolute', top: 0, left: 0}} type="button">delete</button>
+                                            <DeleteArtButton
+                                                artId={art.id}
+                                                albumId={album.id}
+                                            />
                                         </span>
                                         )
                                         

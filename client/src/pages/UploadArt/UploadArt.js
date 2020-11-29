@@ -77,10 +77,9 @@ const UploadArt = props => {
         update(proxy, result) {
             const data = proxy.readQuery({ query: FETCH_ARTS });
             data.getArts = [result.data.createArt, ...data.getArts];
-            console.log(data.getArts);
             proxy.writeQuery({ query: FETCH_ARTS, data });
-            props.history.push('/');
         },
+        onCompleted() { props.history.push('/'); },
         onError(err) {
             setError(err.graphQLErrors[0].message)
         },
@@ -100,11 +99,6 @@ const UploadArt = props => {
             saveArt();
         }
     }, [values, saveArt])
-
-
-/*     const saveArt = () => {
-        createArt();
-    } */
 
     return (
         <div>
