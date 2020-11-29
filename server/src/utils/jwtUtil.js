@@ -7,7 +7,8 @@ export const generateToken = user => {
         {
             id: user._id,
             email: user.email,
-            username: user.username
+            username: user.username,
+            img: user.img
         }, 
         SECRET_KEY/* , { expiresIn: '10h' } */)
 };

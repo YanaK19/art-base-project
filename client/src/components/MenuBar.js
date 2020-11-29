@@ -17,6 +17,9 @@ const MenuBar = () => {
                     <NavLink to="/upload" className="nav-link" activeStyle={{color: 'red'}}>Upload</NavLink>
                 </li>
                 <li>
+                    <NavLink to="/portfolio" className="nav-link" activeStyle={{color: 'red'}}>Portfolio</NavLink>
+                </li>
+                <li>
                     <div>
                         {
                         user.img && (<img src={"/" + user.img.path} 

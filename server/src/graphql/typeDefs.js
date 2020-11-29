@@ -124,7 +124,7 @@ export default gql`
     unpublishArt(artId: ID!): Art
     addArtToAlbum(artId: ID!, albumId: ID!): Album
     deleteArtFromAlbum(artId: ID!, albumId: ID!): Album
-    likeArt(artId: ID!): Art!
+    likeArt(artId: ID!): ArtExt!
     createArtComment(artId: ID!, text: String!): Art!
     deleteArtComment(artId: ID!, commentId: ID!): Art!
 

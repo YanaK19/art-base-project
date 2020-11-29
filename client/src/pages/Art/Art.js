@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import moment from 'moment'
+import LikeButton from '../../components/LikeButton';
 
 const FETCH_ART = gql`
     query GetPublishedArt($artId: ID!) {
@@ -30,7 +31,7 @@ const FETCH_ART = gql`
                     img { id path filename mimetype }
                 }
             }
-            likes { id }
+            likes { id userId }
         }
     }
 `;
@@ -38,17 +39,12 @@ const FETCH_ART = gql`
 const Art = () => {
     const { id } = useParams();
     const history = useHistory();
-    
 
     const { loading, data } = useQuery(FETCH_ART,
         { variables: { artId : id } });
 
     if (!loading) {
         console.log(data, id);
-    }
-
-    const likeArt = () => {
-        console.log('like');
     }
 
     const commentArt = () => {
@@ -64,7 +60,12 @@ const Art = () => {
                         Go back
                     </button>
                     
-                    <button onClick={likeArt}>Like <span>{data.getPublishedArt.likes.length}</span></button>
+                    <LikeButton
+                    art={{
+                        id: data.getPublishedArt.id,
+                        likes: data.getPublishedArt.likes,
+                        likeCount: data.getPublishedArt.likes.length
+                    }}/>
                     
                     <button onClick={commentArt}>Comment</button>
                     
