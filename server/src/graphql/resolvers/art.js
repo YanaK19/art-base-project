@@ -41,6 +41,10 @@ export default {
             title, details, category, tags, file, albumName, toPublish
         } }, context) => {
             try {
+                if (!title) {
+                    throw new Error('Title mustnt be empty');
+                }
+
                 const userContext = checkToken(context);
                 const user = await User.findById(userContext.id);
                 

@@ -1,7 +1,24 @@
-import React, { useContext, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import FileUploadWithPreview from '../../components/FileUploadWithPreview';
-import { AuthContext } from '../../context/auth';
 import gql from 'graphql-tag';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+
+const FETCH_ARTS = gql`
+    {
+        getArts {
+            id
+            title details category
+            user { 
+                id 
+                username 
+                img { id path filename mimetype } 
+            }
+            img { id path filename mimetype }
+            likes { id }
+            publishedAt
+        }
+    }
+`;
 
 const FETCH_DICTIONARY = gql`
     {
@@ -16,13 +33,36 @@ const FETCH_DICTIONARY = gql`
   }
 `;
 
-/* const FETCH_ALBUMS = gql`
-    {
-  }
-`; */
+const FETCH_ALBUMS = gql`{ getAlbums{ id name } }`;
 
-const UploadArt = () => {
-    const context = useContext(AuthContext);
+const CREATE_ART = gql`
+mutation CreateArt(
+    $title: String!
+    $details: String
+    $category: String
+    $albumName: String
+    $toPublish: Boolean
+    $file: Upload!) {
+    createArt(createArtInput: {
+        title: $title
+        details: $details
+        category: $category
+        albumName: $albumName
+        toPublish: $toPublish
+        file: $file
+    }) {
+        id
+        title details category publishedAt
+        img { id path filename mimetype }
+        user { id username img { id path filename mimetype } }
+    }
+}
+`;
+
+const UploadArt = props => {
+    const { loading: loadingDictionary, data: dataDictionary } = useQuery(FETCH_DICTIONARY);
+    const { loading: loadingAlbums, data: dataAlbums } = useQuery(FETCH_ALBUMS);
+
     const [values, setValues] = useState({
         title: '',
         details: '',
@@ -31,20 +71,47 @@ const UploadArt = () => {
         albumName: '',
         toPublish: false
     });
+    const [error, setError] = useState();
+
+    const [createArt, { loading: creating }] = useMutation(CREATE_ART, {
+        update(proxy, result) {
+            const data = proxy.readQuery({ query: FETCH_ARTS });
+            data.getArts = [result.data.createArt, ...data.getArts];
+            console.log(data.getArts);
+            proxy.writeQuery({ query: FETCH_ARTS, data });
+            props.history.push('/');
+        },
+        onError(err) {
+            setError(err.graphQLErrors[0].message)
+        },
+        variables : values
+    });
 
     const savePublishedArt = () => {
         setValues({...values, toPublish: true});
-        saveArt();
     }
 
-    const saveArt = () => {
+    const saveArt = useCallback(() => {
+        createArt();
+    }, [createArt]);
 
-    }
+    useEffect(() => {
+        if (values.toPublish) {
+            saveArt();
+        }
+    }, [values, saveArt])
+
+
+/*     const saveArt = () => {
+        createArt();
+    } */
 
     return (
         <div>
             <h2>Upload Art</h2>
-            {(<form>
+            {error && (<div>{error}</div>)}
+            { !loadingDictionary && !loadingAlbums && (
+            <form>
                 <FileUploadWithPreview setFile={file => setValues({...values, file})}/>
 
                 <div>title</div>
@@ -64,20 +131,34 @@ const UploadArt = () => {
                     value={values.category}
                     onChange={e => setValues({...values, category: e.target.value})}
                 >
-                    <option value="">category1</option>
+                    <option value="">-- None --</option>
+                    {
+                        dataDictionary.getDictionary.categories.map(category => {
+                            return (
+                            <option key={category.id} value={category.name}>{category.name}</option>
+                            )
+                        })
+                    }
                 </select>
 
                 <div>Select album</div>
                 <select name="album"
                     value={values.album}
-                    onChange={e => setValues({...values, album: e.target.value})}                
+                    onChange={e => setValues({...values, albumName: e.target.value})}                
                 >
-                    <option value="">album1</option>
+                    {
+                        dataAlbums.getAlbums.map(album => {
+                            return (
+                            <option key={album.id} value={album.name}>{album.name}</option>
+                            )
+                        })
+                    }
                 </select>
                 <br/><hr/><br/>
                 <div>
-                    <button type="button" onClick={saveArt}>save</button>
-                    <button type="button" onClick={savePublishedArt}>publish</button>
+                    <button type="button" disabled={creating} onClick={saveArt}>save</button>
+                    <br/><br/>
+                    <button type="button" disabled={creating} onClick={savePublishedArt}>publish</button>
                 </div>
 
             </form>)}
