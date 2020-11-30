@@ -32,7 +32,7 @@ const Portfolio = () => {
                                 {
                                     album.arts.map(art => {
                                         return (
-                                        <span style={{position: 'relative'}}>
+                                        <span key={art.id} style={{position: 'relative'}}>
                                             <img src={"/" + art.img.path} 
                                         alt={art.img.filename}
                                         style={{width: '40%'}} />

@@ -60,8 +60,6 @@ const Art = () => {
                         likeCount: data.getPublishedArt.likes.length
                     }}/>
                     
-                    <button onClick={commentArt}>Comment</button>
-                    
                     <p>{data.getPublishedArt.title}</p>
                     <p>{data.getPublishedArt.details}</p>
                     <p>{data.getPublishedArt.category}</p>
