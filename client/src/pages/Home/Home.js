@@ -37,15 +37,7 @@ const FETCH_DICTIONARY = gql`
 const Home = () => {
     const { loading: loadingArts, data: dataArts } = useQuery(FETCH_ARTS);
     const { loading: loadingDictionary, data: dataDictionary } = useQuery(FETCH_DICTIONARY);
-
-/*     if (!loadingArts) {
-        console.log(dataArts);
-    }
-
-    if (!loadingDictionary) {
-        console.log(dataDictionary);
-    } */
-
+    
     return (
         <div>
             { (loadingArts || loadingDictionary) && <Loading/> }

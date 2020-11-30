@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import moment from 'moment'
 import LikeButton from '../../components/LikeButton';
-import ArtComment from '../../components/ArtComment';
+import ArtComments from '../../components/ArtComments';
 
 const FETCH_ART = gql`
     query GetPublishedArt($artId: ID!) {
@@ -44,14 +44,6 @@ const Art = () => {
     const { loading, data } = useQuery(FETCH_ART,
         { variables: { artId : id } });
 
-    if (!loading) {
-        // console.log(data, id);
-    }
-
-    const commentArt = () => {
-        console.log('comment');
-    }
-
     return (
         <div>
             <h2>Art Details</h2>
@@ -79,12 +71,8 @@ const Art = () => {
                         style={{width: '30%'}} />
                     <p>{data.getPublishedArt.user.username}</p>
                     <p>{data.getPublishedArt.user.about}</p>
-                    <h3>Comments</h3>
-                    <div>{data.getPublishedArt.comments.map(comment => (
-                        <div key={comment.id} style={{border: '3px solid grey', margin: 5}}>
-                            <ArtComment artId={data.getPublishedArt.id} comment={comment}/>
-                        </div>
-                    ))}</div>
+
+                    <ArtComments artId={data.getPublishedArt.id} comments={data.getPublishedArt.comments}/>
                 </div>
             ) }
         </div>
