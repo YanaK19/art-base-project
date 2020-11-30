@@ -214,8 +214,8 @@ export default {
                 }
 
                 const commentIndex = art.comments.findIndex(comment => comment._id == commentId);
-    
-                if (art.comments[commentIndex].userId == userContext.id) {
+
+                if (art.comments[commentIndex].user.id == userContext.id) {
                     art.comments.splice(commentIndex, 1);
                     return await art.save();
                 } else {

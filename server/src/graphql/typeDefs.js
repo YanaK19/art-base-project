@@ -125,8 +125,8 @@ export default gql`
     addArtToAlbum(artId: ID!, albumId: ID!): Album
     deleteArtFromAlbum(artId: ID!, albumId: ID!): Album
     likeArt(artId: ID!): ArtExt!
-    createArtComment(artId: ID!, text: String!): Art!
-    deleteArtComment(artId: ID!, commentId: ID!): Art!
+    createArtComment(artId: ID!, text: String!): ArtExt!
+    deleteArtComment(artId: ID!, commentId: ID!): ArtExt!
 
     createDictionary(tags: [String]): Dictionary
     createCategory(dictionaryId: ID!, name: String!, details: String, files: [Upload]): Dictionary
