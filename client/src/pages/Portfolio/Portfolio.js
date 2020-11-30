@@ -1,25 +1,10 @@
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag'
 import React from 'react'
 import DeleteArtButton from '../../components/DeleteArtButton';
-
-const FETCH_FOLDERS_WITH_ARTS = gql`
-    {
-        getAlbumsWithArts {
-            id
-            name
-            arts { 
-                id title details
-                createdAt publishedAt
-                likes { id }
-                img { id path filename mimetype }
-            }
-        }
-    }
-`
+import { FETCH_ALBUMS_WITH_ARTS } from '../../utils/graphql';
 
 const Portfolio = () => {
-    const { loading: loadingFoldersWithArts, data: dataFoldersWithArts } = useQuery(FETCH_FOLDERS_WITH_ARTS);
+    const { loading: loadingFoldersWithArts, data: dataFoldersWithArts } = useQuery(FETCH_ALBUMS_WITH_ARTS);
 
     return (
         <div>

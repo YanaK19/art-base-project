@@ -1,48 +1,8 @@
 import React, { useContext, useRef, useState } from 'react'
 import ArtComment from './ArtComment'
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { AuthContext } from '../context/auth';
-
-const FETCH_ART = gql`
-    query GetPublishedArt($artId: ID!) {
-        getPublishedArt(artId: $artId) {
-            id
-            title
-            details
-            category
-            tags
-            publishedAt
-            img { id path filename mimetype }
-            user {
-                id
-                username
-                about
-                img { id path filename mimetype }
-            }
-            comments {
-                id
-                text
-                createdAt
-                user {
-                    id
-                    username
-                    img { id path filename mimetype }
-                }
-            }
-            likes { id userId }
-        }
-    }
-`;
-
-const CREATE_ART_COMMENT = gql`
-    mutation createArtComment($artId: ID!, $text: String!) {
-        createArtComment(artId: $artId, text: $text) {
-            id
-            comments { id text }
-        }
-    }
-`;
+import { CREATE_ART_COMMENT, FETCH_ART } from '../utils/graphql';
 
 const ArtComments = ({ artId, comments }) => {
     const [text, setText] = useState('');

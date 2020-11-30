@@ -1,41 +1,10 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom';
-import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import moment from 'moment'
 import LikeButton from '../../components/LikeButton';
 import ArtComments from '../../components/ArtComments';
-
-const FETCH_ART = gql`
-    query GetPublishedArt($artId: ID!) {
-        getPublishedArt(artId: $artId) {
-            id
-            title
-            details
-            category
-            tags
-            publishedAt
-            img { id path filename mimetype }
-            user {
-                id
-                username
-                about
-                img { id path filename mimetype }
-            }
-            comments {
-                id
-                text
-                createdAt
-                user {
-                    id
-                    username
-                    img { id path filename mimetype }
-                }
-            }
-            likes { id userId }
-        }
-    }
-`;
+import { FETCH_ART } from '../../utils/graphql';
 
 const Art = () => {
     const { id } = useParams();

@@ -1,17 +1,7 @@
 import React, { useContext, useState } from 'react'
-import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
 import { AuthContext } from '../../context/auth';
-
-const LOGIN = gql`
-    mutation Login($email: String!, $password: String!) {
-            login(email: $email, password: $password) {
-                id username email
-                token
-                img { id path filename mimetype }
-            }
-    }
-`
+import { LOGIN } from '../../utils/graphql';
 
 const Login = props => {
     const context = useContext(AuthContext);

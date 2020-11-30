@@ -1,19 +1,8 @@
 import React, { useContext, useState } from 'react'
 import moment from 'moment'
 import { AuthContext } from '../context/auth';
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-
-const DELETE_ART_COMMENT = gql`
-    mutation deleteArtComment($artId: ID!, $commentId: ID!) {
-        deleteArtComment(artId: $artId, commentId: $commentId) {
-            id
-            comments {
-                id text
-            }
-        }
-    }
-`;
+import { DELETE_ART_COMMENT } from '../utils/graphql';
 
 const ArtComment = ({ artId, comment }) => {
     const context = useContext(AuthContext);

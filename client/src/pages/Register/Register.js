@@ -1,31 +1,8 @@
 import React, { useContext, useState } from 'react'
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import FileUploadWithPreview from '../../components/FileUploadWithPreview';
 import { AuthContext } from '../../context/auth';
-
-const REGISTER = gql`
-    mutation Register(
-        $username: String!
-        $about: String
-        $email: String!
-        $password: String!
-        $file: Upload) {
-            register(
-            registerInput: {
-                email: $email
-                password: $password
-                username: $username
-                about: $about
-                file: $file
-            }
-            ) {
-                id username email
-                token
-                img { id path filename mimetype }
-            }
-    }
-`
+import { REGISTER } from '../../utils/graphql';
 
 // @todo: loading while registering
 

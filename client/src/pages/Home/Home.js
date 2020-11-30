@@ -1,38 +1,8 @@
 import React from 'react'
-import gql from 'graphql-tag';
 import { useQuery } from "@apollo/react-hooks";
 import Loading from '../../components/Loading';
 import ArtCard from '../../components/ArtCard';
-
-const FETCH_ARTS = gql`
-    {
-        getArts {
-            id
-            title details category
-            user { 
-                id 
-                username 
-                img { id path filename mimetype } 
-            }
-            img { id path filename mimetype }
-            likes { id }
-            publishedAt
-        }
-    }
-`;
-
-const FETCH_DICTIONARY = gql`
-    {
-        getDictionary(dictionaryId: "5fbaba339e38ef2a144ec4eb") {
-            categories {
-                id
-                name
-                details
-                imgs { id path filename mimetype }
-            }
-        }
-  }
-`;
+import { FETCH_ARTS, FETCH_DICTIONARY } from '../../utils/graphql';
 
 const Home = () => {
     const { loading: loadingArts, data: dataArts } = useQuery(FETCH_ARTS);

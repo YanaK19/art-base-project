@@ -1,47 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import FileUploadWithPreview from '../../components/FileUploadWithPreview';
-import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { client } from '../..';
-
-const FETCH_DICTIONARY = gql`
-    {
-        getDictionary(dictionaryId: "5fbaba339e38ef2a144ec4eb") {
-            categories {
-                id
-                name
-                details
-                imgs { id path filename mimetype }
-            }
-        }
-  }
-`;
-
-const FETCH_ALBUMS = gql`{ getAlbums{ id name } }`;
-
-const CREATE_ART = gql`
-mutation CreateArt(
-    $title: String!
-    $details: String
-    $category: String
-    $albumName: String
-    $toPublish: Boolean
-    $file: Upload!) {
-    createArt(createArtInput: {
-        title: $title
-        details: $details
-        category: $category
-        albumName: $albumName
-        toPublish: $toPublish
-        file: $file
-    }) {
-        id
-        title details category publishedAt
-        img { id path filename mimetype }
-        user { id username img { id path filename mimetype } }
-    }
-}
-`;
+import {
+    FETCH_DICTIONARY,
+    FETCH_ALBUMS,
+    CREATE_ART
+} from '../../utils/graphql';
 
 const UploadArt = props => {
     const { loading: loadingDictionary, data: dataDictionary } = useQuery(FETCH_DICTIONARY);

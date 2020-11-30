@@ -1,16 +1,7 @@
 import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/auth';
-
-const LIKE_ART = gql`
-    mutation likeArt($artId: ID!) {
-        likeArt(artId: $artId) {
-          id
-          likes { id userId }  
-        }
-    }
-`;
+import { LIKE_ART } from '../utils/graphql';
 
 const LikeButton = ({ art: {id, likes, likeCount} }) => {
     const [liked, setLiked] =useState(false);
