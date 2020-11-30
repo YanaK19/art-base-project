@@ -28,18 +28,6 @@ const FETCH_FOLDERS_WITH_ARTS = gql`
 const DeleteArtButton = ({ artId, albumId }) => {
     const [deleteArtFromAlbum] = useMutation(DELETE_ART_FROM_ALBUM, 
         {
-            update(proxy) {
-                const data = proxy.readQuery({
-                    query: FETCH_FOLDERS_WITH_ARTS
-                  });
-
-                  data.getAlbumsWithArts = data.getAlbumsWithArts.map(album => {
-                    album.arts = album.arts.filter(art => art.id !== artId)
-                    return album;
-                  });
-                  proxy.writeQuery({ query: FETCH_FOLDERS_WITH_ARTS, data });
-                  // client.resetStore();
-            },
             refetchQueries: [{query: FETCH_FOLDERS_WITH_ARTS}],
             variables: { artId, albumId }
         }

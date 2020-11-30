@@ -20,7 +20,6 @@ const Login = props => {
 
     const [login, { loading }] = useMutation(LOGIN, {
         update(_, result) {
-            console.log(result);
             context.login(result.data.login);
             props.history.push('/');
         },
@@ -32,7 +31,6 @@ const Login = props => {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(values);
         login();
     }
 

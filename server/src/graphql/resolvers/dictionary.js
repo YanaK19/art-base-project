@@ -17,7 +17,6 @@ export default {
         },
         createCategory: async (_, { dictionaryId, name, details, files }) => {
             try {
-                // console.log(await files[0], await files[1]);
                 const dictionary = await Dictionary.findById(dictionaryId);
                 const newCategory = { name, details, imgs: [] }
 

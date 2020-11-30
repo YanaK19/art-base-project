@@ -44,7 +44,7 @@ const Art = () => {
         { variables: { artId : id } });
 
     if (!loading) {
-        console.log(data, id);
+        // console.log(data, id);
     }
 
     const commentArt = () => {

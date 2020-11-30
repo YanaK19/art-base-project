@@ -10,7 +10,6 @@ export default {
     },
     Mutation: {
         uploadFile: async (_, { file }) => {
-            console.log(file);
             // Creates an images folder in the root directory
             mkdir("images", { recursive: true }, (err) => {
               if (err) throw err;

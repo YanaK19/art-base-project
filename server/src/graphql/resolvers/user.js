@@ -66,7 +66,6 @@ export default {
         register: async (_, { registerInput: {
             email, password, username, about, file
         } }) => {
-            //console.log(file);
             try {
                 validateRegisterInput(email, password, username);
                 // make sure user doesnt already exist

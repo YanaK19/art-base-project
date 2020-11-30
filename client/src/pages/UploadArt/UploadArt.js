@@ -2,23 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import FileUploadWithPreview from '../../components/FileUploadWithPreview';
 import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-
-const FETCH_ARTS = gql`
-    {
-        getArts {
-            id
-            title details category
-            user { 
-                id 
-                username 
-                img { id path filename mimetype } 
-            }
-            img { id path filename mimetype }
-            likes { id }
-            publishedAt
-        }
-    }
-`;
+import { client } from '../..';
 
 const FETCH_DICTIONARY = gql`
     {
@@ -75,9 +59,7 @@ const UploadArt = props => {
 
     const [createArt, { loading: creating }] = useMutation(CREATE_ART, {
         update(proxy, result) {
-            const data = proxy.readQuery({ query: FETCH_ARTS });
-            data.getArts = [result.data.createArt, ...data.getArts];
-            proxy.writeQuery({ query: FETCH_ARTS, data });
+            client.resetStore();
         },
         onCompleted() { props.history.push('/'); },
         onError(err) {

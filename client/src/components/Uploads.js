@@ -26,7 +26,7 @@ export default function Uploads() {
       <>
         <h1 className="text-center">Recent uploads</h1>
         {data.files.map((file) => {
-          console.log(file);
+          // console.log(file);
           return (
             file.mimetype.split("/")[0].includes("image") && (
               <div

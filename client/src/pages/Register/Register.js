@@ -42,7 +42,6 @@ const Register = props => {
 
     const [register, { loading }] = useMutation(REGISTER, {
         update(_, result) {
-            console.log(result);
             context.login(result.data.register);
             props.history.push('/');
         },
@@ -54,7 +53,6 @@ const Register = props => {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(values);
         register();
     }
 
