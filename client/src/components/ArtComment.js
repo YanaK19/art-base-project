@@ -20,9 +20,9 @@ const ArtComment = ({ artId, comment }) => {
             <p>{comment.user.username}</p>
             <p>{comment.text}</p>
             <p>{moment(comment.createdAt).fromNow(true)}</p>
-            <img src={"/" + comment.user.img.path} 
+            { comment.user.img && (<img src={"/" + comment.user.img.path} 
                 alt={comment.user.filename}
-                style={{width: '10%'}} />
+                style={{width: '10%'}} />)}
             { (context.user && (context.user.id === comment.user.id))
                 ?(<button type="button" onClick={deleteArtComment} disabled={loading}>delete comment</button>)
                 : ''

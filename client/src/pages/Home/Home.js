@@ -1,16 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from "@apollo/react-hooks";
 import Loading from '../../components/Loading';
-import ArtCard from '../../components/ArtCard';
+import SearchArts from '../../components/SearchArts';
+import ArtList from '../../components/ArtList';
+import noResults from '../../static/images/no-results.png'
+import './Home.scss';
+
 import { FETCH_ARTS, FETCH_DICTIONARY } from '../../utils/graphql';
 
 const Home = () => {
-    const { loading: loadingArts, data: dataArts } = useQuery(FETCH_ARTS);
+    const [arts, setArts] = useState([]);
+    const { loading: loadingArts, data: dataArts } = useQuery(FETCH_ARTS, {
+        onCompleted: () => { setArts(dataArts.getArts) }
+    });
     const { loading: loadingDictionary, data: dataDictionary } = useQuery(FETCH_DICTIONARY);
-    
+
+    const setFilteredData = filteredData => {
+        setArts(filteredData);
+    };
+
     return (
         <div>
             { (loadingArts || loadingDictionary) && <Loading/> }
+
+            {
+                !loadingArts && !loadingDictionary && (
+                    <>
+                    <SearchArts data={dataArts.getArts} setFilteredData={setFilteredData}/>
+                
+                    <div className="arts-container">
+                        {
+                            arts.length
+                            ? <ArtList arts={arts}/>
+                            : <div className="no-results-container">
+                                <img className="no-results" src={noResults} alt="no results"/>
+                              </div>
+                        }
+                    </div>
+                    </>
+                )
+            }
+{/*             { (loadingArts || loadingDictionary) && <Loading/> }
             { !loadingArts && !loadingDictionary && (
                 <div>
                     <div>
@@ -31,17 +61,8 @@ const Home = () => {
                             ))
                         }
                     </div>
-
-                    <div>
-                        <h2>Arts</h2>
-                    {
-                        dataArts.getArts.map(art => (
-                            <ArtCard key={art.id} art={art}/>
-                        ))
-                    }
-                    </div>
                 </div>
-            ) }
+            ) } */}
         </div>
     )
 }

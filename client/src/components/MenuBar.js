@@ -1,54 +1,130 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../context/auth'
+import { AppBar, Button, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core'
+import PublishIcon from '@material-ui/icons/Publish';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import PermMediaIcon from '@material-ui/icons/PermMedia';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import '../styles/menuBarStyles.scss'
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    title: {
+        flexGrow: 1
+    },
+    toolbar: {
+        background: '#101010',
+        borderBottom: '1px solid #333'
+    },
+    menu: {
+        '& .MuiPaper-rounded': {
+            borderRadius: 'unset',
+        },
+        '& .MuiMenu-paper': {
+            backgroundColor: '#6d6d6d',
+            color: '#fff'
+        },
+        '& .MuiList-padding': {
+            paddingBottom: 0
+        }
+    },
+    userItem: {
+        padding: '5px 16px 16px 16px',
+        color: '#ccc',
+        textTransform: 'uppercase'
+    },
+    menuItem: {
+        borderTop: '1px solid #333'
+    },
+    icon: {
+        marginRight: '10px'
+    },
+}));
 
 const MenuBar = () => {
     const { user, logout } = useContext(AuthContext);
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const openMenuHandler = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+    
+    const closeMenuHandler = () => {
+        setAnchorEl(null);
+    };
 
     return (
-        <nav>
-            { user 
-            ? (
-            <ul>
-                <li>
-                    <NavLink to="/" exact className="nav-link" activeStyle={{color: 'red'}}>Home</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/upload" className="nav-link" activeStyle={{color: 'red'}}>Upload</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/portfolio" className="nav-link" activeStyle={{color: 'red'}}>Portfolio</NavLink>
-                </li>
-                <li>
-                    <div>
+        <AppBar position="sticky">
+        <Toolbar className={classes.toolbar}>
+            <Typography variant="h6" className={classes.title}>
+                <NavLink to="/" exact className="nav-link">
+                    ArtBase
+                </NavLink>
+            </Typography>
+
+            {
+                user
+                ? (<>
+                    <Button>
+                        <NavLink to="/upload" className="nav-link">
+                            <PublishIcon/> Upload
+                        </NavLink>
+                    </Button>
+
+                    <IconButton
+                        aria-label="menu of current user"
+                        aria-controls="user-menu"
+                        aria-haspopup="true"
+                        color="inherit"
+                        onClick={openMenuHandler}
+                    >
                         {
-                        user.img && (<img src={"/" + user.img.path} 
-                            alt={user.img.filename}
-                            style={{width: '10%'}} />
-                        )}
-                        {user.username}
-                    </div>
-                </li>
-                <NavLink onClick={logout} to="/login" className="nav-link" activeStyle={{color: 'red'}}>Logout</NavLink>
-            </ul>
-            )
-            : (
-            <ul>
-                <li>
-                    <NavLink to="/" exact className="nav-link" activeStyle={{color: 'red'}}>Home</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/art" className="nav-link" activeStyle={{color: 'red'}}>Art</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/register" className="nav-link" activeStyle={{color: 'red'}}>Register</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/login" className="nav-link" activeStyle={{color: 'red'}}>Login</NavLink>
-                </li>
-            </ul>
-            )}
-        </nav>
+                            user.img
+                            ? (<img className="user" src={"/" + user.img.path} alt={user.img.filename}/>)
+                            : (<AccountCircle fontSize="large"/>)
+                        }
+                    </IconButton>
+
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={closeMenuHandler}
+                        className={classes.menu}
+                    >
+                        <div className={classes.userItem}>{user.username}</div>
+                        <MenuItem className={classes.menuItem} onClick={closeMenuHandler}>
+                            <NavLink to="/portfolio" className="nav-link">
+                                <PermMediaIcon className={classes.icon}/> Portfolio
+                            </NavLink>
+                        </MenuItem>
+                        <MenuItem className={classes.menuItem} onClick={closeMenuHandler}>
+                            <NavLink onClick={logout} to="/login" className="nav-link">
+                                <ExitToAppIcon className={classes.icon}/> Logout
+                            </NavLink>
+                        </MenuItem>
+                    </Menu>
+                  </>)
+                : (<>
+                    <Button>
+                        <NavLink to="/register" className="nav-link">
+                            Register
+                        </NavLink>
+                    </Button>
+                    <Button>
+                        <NavLink to="/login" className="nav-link">
+                            Login
+                        </NavLink>
+                    </Button>
+                  </>)
+            }
+        </Toolbar>
+        </AppBar>
     )
 }
 
