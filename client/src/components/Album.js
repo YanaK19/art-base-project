@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Album = ({ album }) => {
+const Album = ({ album, onClick }) => {
     const classes = useStyles();
     const [deleteAlbum] = useMutation(DELETE_ALBUM, 
         {
@@ -29,13 +29,13 @@ const Album = ({ album }) => {
 
     return (
         <>
-        <div className="album-container">
-            <div class="album-name-container">
+        <div className="album-container" onClick={onClick}>
+            <div className="album-name-container">
                 <FolderIcon/>
                 <span className="album-name">{ album.name }</span>
             </div>
             <div className="delete-container">
-                <DeleteIcon  className={classes.deleteIcon} onClick={deleteAlbum}/>
+                <DeleteIcon className={classes.deleteIcon} onClick={deleteAlbum}/>
             </div>
         </div>
         </>

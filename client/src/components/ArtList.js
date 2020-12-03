@@ -2,6 +2,7 @@ import { GridList, GridListTile, makeStyles } from '@material-ui/core';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import React from 'react'
 import { useHistory } from 'react-router-dom';
+import DeleteArtButton from './DeleteArtButton'
 
 const useStyles = makeStyles(() => ({
     gridList: {
@@ -19,7 +20,7 @@ const ArtList = props => {
         }
     
         if (isWidthUp('lg', props.width)) {
-          return 5;
+          return props.isPortfolio ? 4 : 5;
         }
     
         if (isWidthUp('md', props.width)) {
@@ -31,10 +32,22 @@ const ArtList = props => {
 
     return (
         <div>
-            <GridList cellHeight={300} className={classes.gridList} cols={getGridListCols()}>
+            <GridList cellHeight={props.isPortfolio ? 250 : 300} className={classes.gridList} cols={getGridListCols()}>
                 {props.arts.map(art => (
-                    <GridListTile key={art.id} cols={1} onClick={() => history.push(`art/${art.id}`)}>
-                        <img src={`/${art.img.path}`} alt={art.img.filename} />
+                    <GridListTile key={art.id} cols={1}>
+                        <img onClick={() => history.push(`art/${art.id}`)} src={`/${art.img.path}`} alt={art.img.filename} />
+                        { props.isPortfolio && (
+                          <div className="shadow"
+                            style={{position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                height: '35px',
+                                background: '#101010bf',
+                                width: '100%'
+                              }}>
+                            <DeleteArtButton artId={art.id} albumId={props.albumId}/>
+                          </div>
+                        )}
                     </GridListTile>
                 ))}
             </GridList>

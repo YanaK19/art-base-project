@@ -1,5 +1,8 @@
 import { useMutation } from '@apollo/react-hooks';
 import React from 'react'
+import DeleteIcon from '@material-ui/icons/Delete';
+import { IconButton } from '@material-ui/core';
+
 import {
     FETCH_ARTS,
     FETCH_ALBUMS_WITH_ARTS,
@@ -15,9 +18,12 @@ const DeleteArtButton = ({ artId, albumId }) => {
     );
 
     return (
-        <button onClick={deleteArtFromAlbum} style={{position: 'absolute', top: 0, left: 0}}>
-            Delete
-        </button>
+        <IconButton size="small" aria-label="delete"
+            onClick={deleteArtFromAlbum}
+            style={{position: 'absolute', top: 0, left: 0, color: 'white'}}
+        >
+            <DeleteIcon fontSize="small" />
+        </IconButton>
     )
 }
 
