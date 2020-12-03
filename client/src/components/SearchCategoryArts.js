@@ -25,6 +25,9 @@ function tabProps(index) {
         },
         '& .MuiTabs-indicator': {
             backgroundColor: 'rgb(19, 175, 240)'
+        },
+        '& .MuiTabScrollButton-root': {
+            color: 'white'
         }
     }
 }));

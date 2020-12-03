@@ -1,0 +1,15 @@
+.album-create {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background: rgb(34, 34, 34);
+    border: 3px dashed rgb(131, 131, 131);
+    padding: 10px;
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

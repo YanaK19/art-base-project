@@ -171,3 +171,19 @@ export const DELETE_ART_FROM_ALBUM = gql`
         }
     }
 `;
+
+export const CREATE_ALBUM = gql`
+    mutation createAlbum($name: String!){
+        createAlbum(name: $name) {
+            id
+            name
+            arts
+        }
+    }
+`;
+
+export const DELETE_ALBUM = gql`
+    mutation deleteAlbum($albumId: ID!){
+        deleteAlbum(albumId: $albumId)
+    }
+`;

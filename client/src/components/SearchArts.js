@@ -38,7 +38,7 @@ const useStyles = makeStyles({
             borderBottom: '2px solid rgb(19, 175, 240)'
         }
     }
-  });
+});
 
 const SearchArts = ({ data, setFilteredData }) => {
     const classes = useStyles();
