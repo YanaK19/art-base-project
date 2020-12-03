@@ -1,0 +1,27 @@
+.login-form-container {
+    width: 97vw;
+    height: 86vh;
+    background: url(../../static/images/landscape4.jpg);
+    margin: auto;
+    margin-top: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    background: #101010bf;
+    padding: 7vw 10vw;
+    display: flex;
+    flex-direction: column;
+
+    .login-form-title {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .login-form-error {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+}

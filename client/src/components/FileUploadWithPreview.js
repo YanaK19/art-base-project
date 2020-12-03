@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDropzone } from 'react-dropzone';
+import '../styles/fileUploadWithPreview.scss'
 
 const FileUploadWithPreview = ({ setFile }) => {
     const [uploadedFile, setUploadedFile] = useState({})
@@ -16,23 +17,17 @@ const FileUploadWithPreview = ({ setFile }) => {
     });
 
     return (
-        <div>
+        <div className="file-upload-container">
             <section className="container">
             <div {...getRootProps({ className: "dropzone" })}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop some file here, or click to select file</p>
+                <p className="dropzone-tooltip">Upload Your <br/> Avatar Here</p>
             </div>
 
-            <h2>Preview</h2>
+            <div>Preview</div>
                 { uploadedFile && (
-                    <div style={{background: 'black'}}>
-                    <aside className="thumb-container">
-                        <div className="thumb" key={uploadedFile.name}>
-                            <div className="thumb-inner">
-                                <img src={uploadedFile.preview} className="img" alt={uploadedFile.length && "img"} />
-                            </div>
-                        </div>
-                    </aside>
+                    <div className="img-preview-container">
+                        <img className="img-preview" src={uploadedFile.preview} className="img" alt={uploadedFile.length && "img"} />
                     </div>
                 ) } 
             </section>
