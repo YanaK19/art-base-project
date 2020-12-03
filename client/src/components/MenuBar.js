@@ -71,7 +71,7 @@ const MenuBar = () => {
                 ? (<>
                     <Button>
                         <NavLink to="/upload" className="nav-link">
-                            <PublishIcon/> Upload
+                            <PublishIcon fontSize='small'/> Upload
                         </NavLink>
                     </Button>
 

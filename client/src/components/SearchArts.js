@@ -73,7 +73,7 @@ const SearchArts = ({ data, setFilteredData }) => {
     }
 
     return (
-        <div className="search-container">
+        <div>
             <div className="filters-container">
                 <span className="label">Search By: </span>
                 <Tabs

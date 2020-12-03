@@ -1,18 +1,5 @@
-.search-container {
-    height: 30vh;
-    min-height: 35vh;
-    background-image: url(../static/images/search.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    margin-top: 1vh;
-}
-
-.search-container {
-    padding: 2vh 0;
-}
-
 .filters-container {
-    background: #101010;
+    background:#101010bf;
     padding-bottom: 10px;
     display: flex;
     justify-content: center;
@@ -26,8 +13,7 @@
 }
 
 .input-container {
-    background: #101010;
-    margin-top: 1vh;
+    background: #101010bf;
     display: flex;
     text-align: center;
     justify-content: center;
