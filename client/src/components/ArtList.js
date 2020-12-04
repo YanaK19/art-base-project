@@ -45,7 +45,7 @@ const ArtList = props => {
                                 background: '#101010bf',
                                 width: '100%'
                               }}>
-                            <DeleteArtButton artId={art.id} albumId={props.albumId}/>
+                            <DeleteArtButton onDelete={props.onArtDelete} artId={art.id} albumId={props.albumId}/>
                           </div>
                         )}
                     </GridListTile>

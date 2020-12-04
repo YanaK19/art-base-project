@@ -9,11 +9,12 @@ import {
     DELETE_ART_FROM_ALBUM
 } from '../utils/graphql';
 
-const DeleteArtButton = ({ artId, albumId }) => {
+const DeleteArtButton = ({ artId, albumId, onDelete }) => {
     const [deleteArtFromAlbum] = useMutation(DELETE_ART_FROM_ALBUM, 
         {
             refetchQueries: [{query: FETCH_ARTS}, {query: FETCH_ALBUMS_WITH_ARTS}],
-            variables: { artId, albumId }
+            variables: { artId, albumId },
+            onCompleted: () => { onDelete() }
         }
     );
 

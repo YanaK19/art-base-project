@@ -18,10 +18,10 @@ const FileUploadWithPreview = ({ setFile }) => {
 
     return (
         <div className="file-upload-container">
-            <section className="container">
+            <section>
             <div {...getRootProps({ className: "dropzone" })}>
                 <input {...getInputProps()} />
-                <p className="dropzone-tooltip">Upload Your <br/> Avatar Here</p>
+                <p style={{textAlign: 'center'}} className="dropzone-tooltip">Upload Your <br/> File Here</p>
             </div>
 
             <div>Preview</div>

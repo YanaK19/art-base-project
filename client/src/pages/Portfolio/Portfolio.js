@@ -18,6 +18,7 @@ const Portfolio = () => {
     const classes = useStyles();
     const { loading: loadingFoldersWithArts, data: dataFoldersWithArts } = useQuery(FETCH_ALBUMS_WITH_ARTS);
     const [selectedAlbum, setSelectedAlbum] = useState({});
+    const [status, setStatus] = useState({});
 
     useEffect(() => {
         if (dataFoldersWithArts) {
@@ -27,14 +28,14 @@ const Portfolio = () => {
     
             setSelectedAlbum(defaultAlbum);
         }
-    }, [loadingFoldersWithArts])
+    }, [loadingFoldersWithArts, dataFoldersWithArts, status])
 
     return (
         <div>
             { !loadingFoldersWithArts && (
                 <div className="portfolio-container">
                     <div className="portfolio-header">
-                        <h2>- Portfolio -</h2>
+                        <h2>Portfolio: {selectedAlbum.name}</h2>
                     </div>
 
                     <div className={classes.root}>
@@ -50,7 +51,7 @@ const Portfolio = () => {
                                 </div>
                             </Grid>
                             <Grid item lg={9} md={9} sm={6}>
-                                <ArtList isPortfolio={true} albumId={selectedAlbum.id} arts={selectedAlbum.arts} /> 
+                                <ArtList onArtDelete={() => setStatus('ok')} isPortfolio={true} albumId={selectedAlbum.id} arts={selectedAlbum.arts} /> 
                             </Grid>
                         </Grid>
                     </div>

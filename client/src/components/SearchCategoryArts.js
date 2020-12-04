@@ -6,9 +6,9 @@ function tabProps(index) {
       id: `scrollable-auto-tab-${index}`,
       'aria-controls': `scrollable-auto-tabpanel-${index}`,
     };
-  }
+}
   
-  const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
       width: '100%',
