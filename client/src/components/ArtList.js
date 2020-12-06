@@ -42,7 +42,7 @@ const ArtList = props => {
             <GridList cellHeight={props.isPortfolio ? 250 : 300} className={classes.gridList} cols={getGridListCols()}>
                 {props.arts.map(art => (
                     <GridListTile className={classes.gridListTile} key={art.id} cols={1}>
-                        <div className="hover-art-info">
+                        {!props.isPortfolio && (<div className="hover-art-info">
                           <div className="hover-art-info_img">
                             <img className="hover-art-user"
                               src={"/" + art.user.img.path}
@@ -57,7 +57,7 @@ const ArtList = props => {
                               {art.user.username}
                             </div>
                           </div>
-                        </div>
+                        </div>)}
                         <img
                           className="art-img"
                           onClick={() => history.push(`art/${art.id}`)}
