@@ -1,8 +1,9 @@
 import { GridList, GridListTile, makeStyles } from '@material-ui/core';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-import React from 'react'
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import DeleteArtButton from './DeleteArtButton'
+import DeleteArtButton from './DeleteArtButton';
+import MenuArtButton from './MenuArtButton';
 
 const useStyles = makeStyles(() => ({
     gridList: {
@@ -46,6 +47,14 @@ const ArtList = props => {
                                 width: '100%'
                               }}>
                             <DeleteArtButton onDelete={props.onArtDelete} artId={art.id} albumId={props.albumId}/>
+                            <MenuArtButton art={art} albums={props.albums}/>
+
+                            {art.publishedAt && (<div style={{
+                              position: 'absolute',
+                              right: '34px',
+                              top: '3px'}}>
+                              published
+                            </div>)}
                           </div>
                         )}
                     </GridListTile>

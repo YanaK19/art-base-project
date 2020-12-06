@@ -35,7 +35,7 @@ const Portfolio = () => {
             { !loadingFoldersWithArts && (
                 <div className="portfolio-container">
                     <div className="portfolio-header">
-                        <h2>Portfolio: {selectedAlbum.name}</h2>
+                        <h2>Portfolio: <span style={{color: 'rgb(19, 175, 240)'}}>{selectedAlbum.name}</span></h2>
                     </div>
 
                     <div className={classes.root}>
@@ -51,7 +51,13 @@ const Portfolio = () => {
                                 </div>
                             </Grid>
                             <Grid item lg={9} md={9} sm={6}>
-                                <ArtList onArtDelete={() => setStatus('ok')} isPortfolio={true} albumId={selectedAlbum.id} arts={selectedAlbum.arts} /> 
+                                <ArtList
+                                    onArtDelete={() => setStatus('ok')}
+                                    isPortfolio={true}
+                                    albums={dataFoldersWithArts.getAlbumsWithArts}
+                                    albumId={selectedAlbum.id}
+                                    arts={selectedAlbum.arts}
+                                /> 
                             </Grid>
                         </Grid>
                     </div>

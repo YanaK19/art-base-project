@@ -21,7 +21,7 @@ const DeleteArtButton = ({ artId, albumId, onDelete }) => {
     return (
         <IconButton size="small" aria-label="delete"
             onClick={deleteArtFromAlbum}
-            style={{position: 'absolute', top: 0, left: 0, color: 'white'}}
+            style={{position: 'absolute', top: 0, left: 0, color: 'rgb(19, 175, 240)'}}
         >
             <DeleteIcon fontSize="small" />
         </IconButton>

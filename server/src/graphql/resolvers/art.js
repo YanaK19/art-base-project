@@ -107,11 +107,15 @@ export default {
                 const user = await User.findById(userContext.id);
 
                 const albumAllIndex = user.albums.findIndex(album => album.name === 'All');
-                user.albums[albumAllIndex].arts.push(artId);
-
-                const albumIndex = user.albums.findIndex(album => album._id == albumId);
-                user.albums[albumIndex].arts.push(artId);
+                if (!user.albums[albumAllIndex].arts.find(art => art._id == artId)) {
+                    user.albums[albumAllIndex].arts.push(artId);
+                }
                 
+                const albumIndex = user.albums.findIndex(album => album._id == albumId);
+                if (!user.albums[albumIndex].arts.find(art => art._id == artId)) {
+                    user.albums[albumIndex].arts.push(artId);
+                }
+            
                 await user.save();
                 return user.albums[albumIndex];
             } catch (error) {

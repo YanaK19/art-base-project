@@ -1,0 +1,21 @@
+.comment-title {
+    margin-top: 10px;
+    color: #FF8B09;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    span {
+        margin-left: 10px;
+    }
+}
+
+.comment-form {
+    position: absolute;
+    border-top: 2px solid #FF8B09;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    width: 32%;
+    background: #181818;
+}

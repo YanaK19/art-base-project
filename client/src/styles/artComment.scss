@@ -1,0 +1,29 @@
+.comment-user {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    position: relative;
+
+    .comment-user-username {
+        margin-left: 10px;
+        font-size: 1.4rem;
+        color: #13aff0;
+    }
+
+    .delete-comment {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+.comment-text {
+    margin-left: 50px;
+}
+
+.comment-created {
+    font-size: 1rem;
+    color: #ffffffa3;
+    text-align: end;
+    margin-right: 15px;
+}

@@ -30,7 +30,8 @@ const useStyles = makeStyles({
     button: {
         '&.MuiButton-root': {
             marginTop: 10,
-            background: 'rgb(19, 175, 240)'
+            background: 'rgb(19, 175, 240)',
+            width: 'fit-content'
         }
     }
 });
@@ -60,7 +61,7 @@ const CreateAlbum = () => {
         <div className="album-create">
             <div className="album-create-title">Create new album</div>
             
-            <form onSubmit={onSubmit}>
+            <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={onSubmit}>
                 <TextField
                     className={classes.input}
                     label="Album Name"

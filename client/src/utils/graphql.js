@@ -164,6 +164,32 @@ export const DELETE_ART_COMMENT = gql`
     }
 `;
 
+export const PUBLISH_ART = gql`
+    mutation publishArt($artId: ID!){
+        publishArt(artId: $artId) {
+            id
+            publishedAt
+        }
+    }
+`;
+
+export const UNPUBLISH_ART = gql`
+    mutation unpublishArt($artId: ID!){
+        unpublishArt(artId: $artId) {
+            id
+            publishedAt
+        }
+    }
+`;
+
+export const ADD_ART_TO_ALBUM = gql`
+    mutation addArtToAlbum($artId: ID!, $albumId: ID!) {
+        addArtToAlbum(artId: $artId, albumId: $albumId) {
+            id name
+        }
+    }
+`;
+
 export const DELETE_ART_FROM_ALBUM = gql`
     mutation deleteArtFromAlbum($artId: ID!, $albumId: ID!) {
         deleteArtFromAlbum(artId: $artId, albumId: $albumId) {
