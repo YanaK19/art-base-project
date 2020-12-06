@@ -60,7 +60,7 @@ const ArtComments = ({ artId, comments }) => {
                 <CommentIcon fontSize="small" /><span>{comments.length} Comment(s)</span>
             </div>
 
-            <div comments>
+            <div>
                 <div>{comments.map(comment => (
                     <ArtComment key={comment.id} artId={artId} comment={comment}/>
                 ))}</div>

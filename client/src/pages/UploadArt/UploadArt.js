@@ -125,7 +125,7 @@ const UploadArt = props => {
         albumName: '',
         toPublish: false
     });
-    const [error, setError] = useState();
+    const [, setError] = useState();
 
     const [createArt, { loading: creating }] = useMutation(CREATE_ART, {
         update(proxy, result) {
@@ -209,8 +209,8 @@ const UploadArt = props => {
                                 <Tab value={''} label="- None -" {...tabProps(0)} />
                                 {
                                 dataDictionary.getDictionary.categories.map((category, i) => {
-                                    return (
-                                        <Tab key={category.id} 
+                                    return i !== 0
+                                    ? (<Tab key={category.id} 
                                             value={category.name}
                                             label={category.name}
                                             {...tabProps(i + 1)}
@@ -223,6 +223,7 @@ const UploadArt = props => {
                                                 </Tooltip>
                                             }
                                         />)
+                                    : '';
                                 })
                                 }
                             </Tabs>

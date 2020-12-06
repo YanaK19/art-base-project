@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppBar, makeStyles, Tab, Tabs } from '@material-ui/core';
 
 function tabProps(index) {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SearchCategoryArts = ({ data, categories, setFilteredData }) => {
+const SearchCategoryArts = ({ data, categories, setFilteredData, isCategoryFilter }) => {
     const classes = useStyles();
     const [value, setValue] = useState(categories[0].name);
 
@@ -47,6 +47,12 @@ const SearchCategoryArts = ({ data, categories, setFilteredData }) => {
             setFilteredData(filteredData);
         }
     };
+
+    useEffect(() => {
+        if (!isCategoryFilter) {
+            setValue('All');
+        }
+    }, [isCategoryFilter])
 
     return (
         <div>

@@ -1,0 +1,36 @@
+.hover-art-info {
+    position: absolute;
+    z-index: 1;
+    background: #18181899;
+    width: 90%;
+    height: 25%;
+    bottom: 0;
+    display: flex;
+    padding: 20px;
+    visibility: hidden;
+
+    &_details {
+        font-size: 1.4rem;
+        overflow: hidden;
+        max-height: 75%;
+    }
+
+    &_about {
+        margin-left: 15px;
+    }
+
+    &_username {
+        font-size: 1.1rem;
+        font-style: oblique;
+    }
+}
+
+.hover-art-user {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.art-img {
+    cursor: pointer;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, Tab, Tabs, TextField } from '@material-ui/core';
 import '../styles/searchArtsStyles.scss'
 import SearchIcon from '@material-ui/icons/Search';
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
     }
 });
 
-const SearchArts = ({ data, setFilteredData }) => {
+const SearchArts = ({ data, setFilteredData, isCategoryFilter }) => {
     const classes = useStyles();
     const [searchBy, setSearchBy] = useState('artwork');
     const [value, setValue] = useState('');
@@ -71,6 +71,12 @@ const SearchArts = ({ data, setFilteredData }) => {
             setFilteredData(data);
         }
     }
+
+    useEffect(() => {
+        if (isCategoryFilter) {
+            setValue('');
+        }
+    }, [isCategoryFilter])
 
     return (
         <div>

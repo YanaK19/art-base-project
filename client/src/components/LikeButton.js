@@ -33,7 +33,7 @@ const LikeButton = ({ art: {id, likes, likeCount} }) => {
                 </IconButton>
             )
         }
-            <span style={{fontSize: '1.5rem'}}>{likeCount} likes</span>
+            <span style={{fontSize: '1.5rem'}}>{likeCount} like(s)</span>
         </>
     ) : '';
 

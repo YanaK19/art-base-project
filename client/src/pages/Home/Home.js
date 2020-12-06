@@ -11,12 +11,20 @@ import { FETCH_ARTS, FETCH_DICTIONARY } from '../../utils/graphql';
 
 const Home = () => {
     const [arts, setArts] = useState([]);
+    const [isCategoryFilter, setIsCategoryFilter] = useState(false);
+
     const { loading: loadingArts, data: dataArts } = useQuery(FETCH_ARTS, {
         onCompleted: () => { setArts(dataArts.getArts) }
     });
     const { loading: loadingDictionary, data: dataDictionary } = useQuery(FETCH_DICTIONARY);
 
     const setFilteredData = filteredData => {
+        setIsCategoryFilter(false);
+        setArts(filteredData);
+    };
+
+    const setFilteredByCategoryData = filteredData => {
+        setIsCategoryFilter(true);
         setArts(filteredData);
     };
 
@@ -31,12 +39,15 @@ const Home = () => {
                         <SearchArts
                             data={dataArts.getArts}
                             setFilteredData={setFilteredData}
+                            isCategoryFilter={isCategoryFilter}
                         />
+                        {dataDictionary.getDictionary.categories.length && (
                         <SearchCategoryArts
                             data={dataArts.getArts}
                             categories={dataDictionary.getDictionary.categories}
-                            setFilteredData={setFilteredData}
-                        />
+                            setFilteredData={setFilteredByCategoryData}
+                            isCategoryFilter={isCategoryFilter}
+                        />)}
                     </div>
                     
                     <div className="arts-container">

@@ -72,7 +72,7 @@ export default {
                 const albumAllIndex = user.albums.findIndex(album => album.name === 'All');
                 user.albums[albumAllIndex].arts.push(newArt._id);
 
-                if (albumName) {
+                if (albumName && albumName !== 'All') {
                     const albumIndex = user.albums.findIndex(album => album.name === albumName);
                     user.albums[albumIndex].arts.push(newArt._id);
                 }

@@ -4,11 +4,17 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import DeleteArtButton from './DeleteArtButton';
 import MenuArtButton from './MenuArtButton';
+import '../styles/artList.scss'
 
 const useStyles = makeStyles(() => ({
     gridList: {
       width: '100%'
     },
+    gridListTile: {
+      '&:hover .hover-art-info': {
+        visibility: 'visible'
+      }
+    }
 }));
 
 const ArtList = props => {
@@ -35,8 +41,29 @@ const ArtList = props => {
         <div>
             <GridList cellHeight={props.isPortfolio ? 250 : 300} className={classes.gridList} cols={getGridListCols()}>
                 {props.arts.map(art => (
-                    <GridListTile key={art.id} cols={1}>
-                        <img onClick={() => history.push(`art/${art.id}`)} src={`/${art.img.path}`} alt={art.img.filename} />
+                    <GridListTile className={classes.gridListTile} key={art.id} cols={1}>
+                        <div className="hover-art-info">
+                          <div className="hover-art-info_img">
+                            <img className="hover-art-user"
+                              src={"/" + art.user.img.path}
+                              alt={art.user.img.filename}
+                              />
+                          </div>
+                          <div className="hover-art-info_about">
+                            <div className="hover-art-info_details">
+                              {art.details}
+                            </div>
+                            <div className="hover-art-info_username">
+                              {art.user.username}
+                            </div>
+                          </div>
+                        </div>
+                        <img
+                          className="art-img"
+                          onClick={() => history.push(`art/${art.id}`)}
+                          src={`/${art.img.path}`}
+                          alt={art.img.filename}
+                        />
                         { props.isPortfolio && (
                           <div className="shadow"
                             style={{position: 'absolute',

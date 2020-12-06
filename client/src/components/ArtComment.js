@@ -20,7 +20,7 @@ const ArtComment = ({ artId, comment }) => {
     });
 
     return (
-        <div style={{'padding-right': '20px'}}>
+        <div style={{'paddingRight': '20px'}}>
             <div className="comment-user">
                 <div className="img-container">
                 {
@@ -29,7 +29,7 @@ const ArtComment = ({ artId, comment }) => {
                     : (<AccountCircle fontSize="large"/>)
                 }
                 </div>
-                <div class="comment-user-username">
+                <div className="comment-user-username">
                     {comment.user.username}
                 </div>
                 {(context.user && (context.user.id === comment.user.id)) && (

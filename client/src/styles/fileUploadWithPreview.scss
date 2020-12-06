@@ -8,5 +8,6 @@
 
 .img-preview-container img {
     max-height: 207px;
-    width: unset;
+    object-fit: contain;
+    width: 100%;
 }

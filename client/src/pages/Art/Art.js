@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import moment from 'moment'
 import LikeButton from '../../components/LikeButton';
@@ -71,7 +71,7 @@ const Art = () => {
                                     </div>
                                 </div>
                                 <div className="art-details-container">
-                                    {data.getPublishedArt.details}fdsfdsfdsfdsf
+                                    {data.getPublishedArt.details}
                                 </div>
                                 <div className="likes-category-published">
                                     <div className="likes-container">
