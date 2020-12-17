@@ -8,7 +8,9 @@ import {
     FETCH_ALBUMS,
     CREATE_ART
 } from '../../utils/graphql';
-import { AppBar, Button, Grid, InputLabel, makeStyles, MenuItem, Select, Tab, Tabs, TextField, Tooltip } from '@material-ui/core';
+import { AppBar, Button, Grid, InputLabel, makeStyles, MenuItem,
+    Select, Tab, Tabs, TextField, Tooltip, Snackbar, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import PublicIcon from '@material-ui/icons/Public';
 
@@ -122,10 +124,9 @@ const UploadArt = props => {
         details: '',
         category: '',
         file: null,
-        albumName: '',
+        albumName: 'All',
         toPublish: false
     });
-    const [, setError] = useState();
 
     const [createArt, { loading: creating }] = useMutation(CREATE_ART, {
         update(proxy, result) {
@@ -133,7 +134,7 @@ const UploadArt = props => {
         },
         onCompleted() { props.history.push('/'); },
         onError(err) {
-            setError(err.graphQLErrors[0].message)
+            setErrorNotificationOpened(true);
         },
         variables : values
     });
@@ -155,6 +156,8 @@ const UploadArt = props => {
     const handleCategoryChange = (event, newValue) => {
         setValues({...values, category: newValue});
     };
+
+    const [errorNotificationOpened, setErrorNotificationOpened] = useState(false)
 
     return (
         <div className="upload-form-container">
@@ -254,6 +257,21 @@ const UploadArt = props => {
                     </div>
                 </Grid>
             </Grid>
+
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={errorNotificationOpened}
+                onClose={() => setErrorNotificationOpened(false)}
+                message="Title or uploaded file was not provided!"
+                key={'bottomhorizontal'}
+                action={
+                    <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        onClick={() => setErrorNotificationOpened(false)}
+                    ><CloseIcon /></IconButton>
+                }
+            />
             </form>)
             }
         </div>

@@ -5,6 +5,7 @@ import moment from 'moment'
 import LikeButton from '../../components/LikeButton';
 import ArtComments from '../../components/ArtComments';
 import { FETCH_ART } from '../../utils/graphql';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Grid, makeStyles } from '@material-ui/core';
 import './Art.scss';
 
@@ -51,9 +52,13 @@ const Art = () => {
                         <div className="details-container">
                             <div className="user-container">
                                 <div className="user-img">
-                                    <img src={'/' + data.getPublishedArt.user.img.path}
+                                    {
+                                    data.getPublishedArt.user.img
+                                    ? (<img src={'/' + data.getPublishedArt.user.img.path}
                                         alt={data.getPublishedArt.user.img.filename}
-                                    />
+                                      />)
+                                    : (<AccountCircle fontSize="large"/>)
+                                    }
                                 </div>
                                 <div className="user-info">
                                     <div className="user-info_username">

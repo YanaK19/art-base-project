@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import DeleteArtButton from './DeleteArtButton';
 import MenuArtButton from './MenuArtButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import '../styles/artList.scss'
 
 const useStyles = makeStyles(() => ({
@@ -44,10 +45,14 @@ const ArtList = props => {
                     <GridListTile className={classes.gridListTile} key={art.id} cols={1}>
                         {!props.isPortfolio && (<div className="hover-art-info">
                           <div className="hover-art-info_img">
-                            <img className="hover-art-user"
-                              src={"/" + art.user.img.path}
-                              alt={art.user.img.filename}
-                              />
+                            {
+                              art.user.img
+                              ? (<img className="hover-art-user"
+                                src={"/" + art.user.img.path}
+                                alt={art.user.img.filename}
+                                />)
+                              : (<AccountCircle fontSize="large"/>)
+                              }
                           </div>
                           <div className="hover-art-info_about">
                             <div className="hover-art-info_details">
